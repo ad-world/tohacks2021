@@ -29,26 +29,29 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
 
-app.get("/getCategory", function(req, res) {
-    const kw = res.kw
-    const loc = res.loc
-    const python = spawn('python', ['newsprocess.py', kw, loc]);
+app.post("/api/getCategory", function(req, res) {
+    console.log("hello???")
+    const kw = req.body.kw
+    const loc = req.body.loc
+    console.log(kw, loc)
+    const python = spawn('python', ['python_news/newsprocess.py', "sports", "CA"]);
     python.stdout.on('data', function (data) {
         console.log('Pipe data from python script ...');
         console.log(data.toString());
-        if (data.toString() == "Done!") {
+        if (data.toString() == "Done!\n") {
+            console.log("made it here!")
             res.send(JSON.parse(fs.readFileSync(__dirname + "/python_news/news_sample.json")))
         }
     })
 });
 
-app.get("/getArticle", function(req, res) {
-    const url = res.url
-    const python = spawn('python', ['articleprocess.py', url]);
+app.post("/getArticle", function(req, res) {
+    const url = req.body.url
+    const python = spawn('python', ['python_news/articleprocess.py', url]);
     python.stdout.on('data', function (data) {
         console.log('Pipe data from python script ...');
         console.log(data.toString());
-        if (data.toString() == "Done!") {
+        if (data.toString() == "Done!\n") {
           res.send(JSON.parse(fs.readFileSync(__dirname + "/python_news/article_sample.json")))
         }
     })
