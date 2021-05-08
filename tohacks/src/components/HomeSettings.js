@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom'
 import { Container, Grid, Form, Checkbox, Header, Button} from 'semantic-ui-react'
 
-
-export default function HomeSettings() {
+function HomeSettings() {
     const [settings, setSettings] = useState({
         sports: false,
         business: false,
@@ -17,9 +15,7 @@ export default function HomeSettings() {
             alert('Please choose atleast one category.')
         } else {
             localStorage.setItem("config", JSON.stringify(settings));
-            return (
-                <Redirect to="/home"/>
-            )
+            window.location.reload()
         }
         
     }
@@ -89,3 +85,6 @@ export default function HomeSettings() {
         </Container>
     )
 }
+
+
+export default HomeSettings;

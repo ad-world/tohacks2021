@@ -11,7 +11,6 @@ function App() {
     <Router>
       <Container>
         <Route exact path='/' component={Home}/>
-        <Route exact path='/home' component={HomeMain}/>
         {/* <Route exact path='/sports' component={Sports}/>
         <Route exact path='/business' component={Business}/>
         <Route exact path='/finance' component={Finance}/>
