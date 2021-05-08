@@ -32,11 +32,11 @@ export default function HomeSettings() {
                         </Form>
                         <Button onClick={() => {
                             fetch("http://localhost:8080/api/getCategory", 
-                            {method: 'POST',
-                             body: JSON.stringify({
-                                kw: 'sports',
-                                loc: 'CA'
-                            })}).then((response) => console.log(response.json()))}}>
+                            {   method: 'POST',
+                                headers: {'Content-Type': 'application/json'},
+                                body: JSON.stringify({"kw":"sports", "loc":"CA"})
+                            }).then((response) => console.log(response.json()))
+                        }}>
                             sample text 
                         </Button>
                     </Grid.Column>

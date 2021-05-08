@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
 
 app.post("/api/getCategory", function(req, res) {
     console.log("hello???")
+    console.log(req)
     const kw = req.body.kw
     const loc = req.body.loc
     console.log(kw, loc)
