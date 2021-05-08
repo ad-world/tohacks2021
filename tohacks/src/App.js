@@ -12,6 +12,7 @@ function App() {
         <Route exact path='/sports' component={Sports}/>
         <Route exact path='/business' component={Business}/>
         <Route exact path='/finance' component={Finance}/>
+        <Route exact path='/politics' component={Politics}/>
       </Container>
     </Router>
   );
