@@ -39,6 +39,15 @@ export default function HomeSettings() {
                         }}>
                             sample text 
                         </Button>
+                        <Button onClick={() => {
+                            fetch("http://localhost:8080/api/getArticle", 
+                            {   method: 'POST',
+                                headers: {'Content-Type': 'application/json'},
+                                body: JSON.stringify({"url":"https://www.forbes.com/sites/mikeozanian/2021/05/07/worlds-most-valuable-sports-teams-2021/"})
+                            }).then((response) => console.log(response.json()))
+                        }}>
+                            sample text 2
+                        </Button>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

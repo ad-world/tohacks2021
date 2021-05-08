@@ -21,7 +21,7 @@ def get_article_info(url):
     new_item = {}
     new_item["title"] = true_title
     new_item["text"] = true_text
-    with open('tohacks/python_news/article_sample.json', 'w') as outfile:
+    with open('python_news/article_sample.json', 'w') as outfile:
         outfile.truncate(0)
         json.dump(new_item, outfile, indent=4)
     
@@ -29,8 +29,7 @@ def get_article_info(url):
 
 
 if __name__ == "__main__":
-    test = True
-    if test:
-        get_article_info("https://www.forbes.com/sites/mikeozanian/2021/05/07/worlds-most-valuable-sports-teams-2021/")
-    else:
-        get_article_info(sys.argv[1])
+    get_article_info("https://www.forbes.com/sites/mikeozanian/2021/05/07/worlds-most-valuable-sports-teams-2021/")
+else:
+    print("mama mia!")
+    get_article_info(sys.argv[1])
