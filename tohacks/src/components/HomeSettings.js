@@ -22,7 +22,8 @@ function HomeSettings() {
 
 
     return (
-        <Container fluid style={{ backgroundColor: 'lightblue' }} >
+        <Container style={{ backgroundColor: 'lightblue' }} className="settings">
+            <div className="child">
             <Grid divided='vertically'>
                 <Grid.Row columns={2}>
                     <Grid.Column>
@@ -86,6 +87,7 @@ function HomeSettings() {
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
+            </div>
         </Container>
     )
 }
