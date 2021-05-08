@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Grid, Form, Checkbox, Header, Button} from 'semantic-ui-react'
+import { getLocation } from '../util/getLocation'
 
 function HomeSettings() {
     const [settings, setSettings] = useState({
@@ -9,15 +10,24 @@ function HomeSettings() {
         politics: false
     })
 
+    const location = {}
+
     const onSubmit = () => {
-        const total = Object.values(settings).reduce((acc, val) => val === true ? acc + 1: acc, 0)
+        const total = Object.values(settings).reduce((acc, val) => val === true ? acc + 1: acc, 0);
+        getLocation().then(data => {
+            return (
+                location.country_name = data.country_name,
+                location.country_code = data.country_code,
+                localStorage.setItem("location", JSON.stringify(location)),
+                window.location.reload()
+            )
+        })
+        
         if(total === 0){
             alert('Please choose atleast one category.')
         } else {
             localStorage.setItem("config", JSON.stringify(settings));
-            window.location.reload()
         }
-        
     }
 
 

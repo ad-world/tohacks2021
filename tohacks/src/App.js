@@ -12,7 +12,7 @@ import { Container } from 'semantic-ui-react';
 function App() {
   return (
     <Container>
-      <NavBar />
+      {localStorage.getItem("config") ? <NavBar /> : <></>}
       <Router>
         <Route exact path='/' component={Home} />
         {/* <Route exact path='/sports' component={Sports}/>
