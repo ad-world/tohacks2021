@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Container } from '@material-ui/core'
 import './App.css';
 
+import HomeSettings from './components/HomeSettings';
+import HomeMain from './components/HomeMain'
 import Home from './pages/Home'
 
 function App() {
