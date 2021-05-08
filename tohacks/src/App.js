@@ -1,21 +1,23 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { Container } from '@material-ui/core'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
+import 'semantic-ui-css/semantic.min.css'
 import './App.css';
 
-import HomeSettings from './components/HomeSettings';
-import HomeMain from './components/HomeMain'
+
 import Home from './pages/Home'
+import Article from './pages/Article'
 
 function App() {
   return (
     <Router>
-      <Container>
         <Route exact path='/' component={Home}/>
         {/* <Route exact path='/sports' component={Sports}/>
         <Route exact path='/business' component={Business}/>
         <Route exact path='/finance' component={Finance}/>
         <Route exact path='/politics' component={Politics}/> */}
-      </Container>
+        <Switch>
+            <Route exact path='/:articleId' component={Article} />
+        </Switch>
     </Router>
   );
 }
