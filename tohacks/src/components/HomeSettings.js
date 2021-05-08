@@ -12,11 +12,16 @@ export default function HomeSettings() {
     })
 
     const onSubmit = () => {
-        localStorage.setItem("config", JSON.stringify(settings));
-        return (
-            <Redirect to="/home"/>
-        )
-        console.log(localStorage.getItem("config"));
+        const total = Object.values(settings).reduce((acc, val) => val === true ? acc + 1: acc, 0)
+        if(total === 0){
+            alert('Please choose atleast one category.')
+        } else {
+            localStorage.setItem("config", JSON.stringify(settings));
+            return (
+                <Redirect to="/home"/>
+            )
+        }
+        
     }
 
 
