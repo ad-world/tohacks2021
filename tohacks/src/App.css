@@ -34,7 +34,6 @@ html {
   height:100%;
 }
 
-<<<<<<< HEAD
 /* For Homesettings */
 .sub_container {
   display: block;
@@ -97,8 +96,8 @@ html {
   -webkit-transform: rotate(45deg);
   -ms-tranform: rotate(45deg);
   transform: rotate(45deg);
-=======
+} 
+
 .root {
   background-color: lightblue;
->>>>>>> 74b6383a0988dd68834ae89fac59e6458b8c55d1
 }
