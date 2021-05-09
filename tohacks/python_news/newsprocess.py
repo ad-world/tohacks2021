@@ -44,7 +44,7 @@ def get_articles_from_kw_and_loc(kw, loc):
             new_item["id"] = article["id"]
             new_item["title"] = article["title"]
             new_item["link"] = article["url"]
-            new_item["date"] = ""
+            new_item["date"] = article["datePublished"]
             article_items.append(new_item)
 
         with open('python_news/news_sample.json', 'w') as outfile:
