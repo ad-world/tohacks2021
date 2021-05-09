@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { Container, Grid, GridColumn } from 'semantic-ui-react'
 import NewsCard from './NewsCard'
-import { Input, Menu } from 'semantic-ui-react'
+import { Input, Menu, Button } from 'semantic-ui-react'
+import { set } from 'mongoose';
 
 const stop = 1;
 
@@ -10,7 +11,7 @@ export default function HomeMain() {
     const config = JSON.parse(localStorage.getItem("config"));
     const handleClick = (e, { name }) => {
         localStorage.setItem('current-tab', name);
-        console.log(name)
+        console.log(name);
         setCurrent(localStorage.getItem('current-tab'))
     };
     var currentTab = useState(localStorage.getItem('current-tab'));
@@ -22,6 +23,11 @@ export default function HomeMain() {
                 body: JSON.stringify({"kw": current, "loc":"CA"})
             }).then((response) => {return response.json()}).then((r) => {
                 setData(r, [stop]); console.log("new request was made")}), [current])
+
+    const [search, setSearch] = useState('');
+    const handleChange = (e) => {
+        setSearch(e.target.value);
+    }
     return (
         <Container className="background">
             <Menu secondary>
@@ -31,7 +37,7 @@ export default function HomeMain() {
                 onClick={handleClick}/>
                 {config && Object.entries(config).map((key, val) => {
                     if (key[1]) {
-                        console.log(key)
+                        // console.log(key)
                         return (
                             <Menu.Item
                                 name={key[0]}
@@ -43,13 +49,16 @@ export default function HomeMain() {
                 })}
                 <Menu.Menu position='right'>
                     <Menu.Item>
-                        <Input icon='search' placeholder='Search...' />
+                        <Input icon='search' placeholder='Search...' onChange={handleChange}>
+                            <input/>
+                            <Button type='submit' onClick={() => {
+                                if(search.trim() != ''){
+                                    setCurrent(search)
+                                }
+                                console.log(search)
+                            }}>Search</Button>
+                        </Input>
                     </Menu.Item>
-                    <Menu.Item
-                        name='logout'
-                        active={current === 'logout'}
-                        onClick={handleClick}
-                    />
                 </Menu.Menu>
             </Menu>
             <Grid columns={3}>

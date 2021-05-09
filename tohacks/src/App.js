@@ -6,7 +6,6 @@ import './App.css';
 
 import Home from './pages/Home'
 import Article from './pages/Article'
-import NavBar from './components/NavBar'
 import { Container } from 'semantic-ui-react';
 
 function App() {
