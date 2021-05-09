@@ -40,12 +40,7 @@ export default function HomeMain() {
     const config = JSON.parse(localStorage.getItem("config"));
     const handleClick = (e, { name }) => {
         localStorage.setItem('current-tab', name);
-
-        console.log(name);
-
-        console.log(name)
         setLoading(true)
-
         setCurrent(localStorage.getItem('current-tab'))
     };
     var currentTab = useState(localStorage.getItem('current-tab'));
