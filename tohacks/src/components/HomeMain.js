@@ -41,11 +41,11 @@ const totalOptions = ['finance', 'sports', 'politics', 'business', 'technology']
 export default function HomeMain() {
     const [current, setCurrent] = useState('latest news');
     const [loading, setLoading] = useState(true);
-    localStorage.setItem('current-tab', 'latest news');
+    localStorage.setItem('current-tab', current);
     const config = JSON.parse(localStorage.getItem("config"));
     const handleClick = (e, { name }) => {
         localStorage.setItem('current-tab', name);
-
+        console.log(localStorage.getItem('current-tab'))
         setLoading(true)
 
         setCurrent(localStorage.getItem('current-tab'))
@@ -137,6 +137,7 @@ export default function HomeMain() {
                                 if(search.trim() != ''){
                                     setCurrent(search)
                                 }
+                                console.log(search)
                             }}>Search</Button>
                         </Input>
                     </Menu.Item>
