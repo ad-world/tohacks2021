@@ -6,7 +6,7 @@ import { Container, Grid, Header } from 'semantic-ui-react';
 import moment from 'moment';
 import { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar'
-import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
+import Loading from '../components/Loading'
 
 function SingleArticle(props) {
 
@@ -37,10 +37,7 @@ function SingleArticle(props) {
     var articles
 
     if (loading) {
-        articles =
-        <div>
-            <Loader active inline='centered' className='settings' size='massive' style={{marginTop: '40%'}}/>
-        </div>
+        articles = <Loading/>
             
     } else {
         articles = <Container>

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { Container, Dropdown, Grid, GridColumn } from 'semantic-ui-react'
 import NewsCard from './NewsCard'
 import { Input, Menu, Button} from 'semantic-ui-react'
-
+import Loading from './Loading'
 
 const stop = 1;
 
@@ -69,7 +69,7 @@ export default function HomeMain() {
     var articles
 
     if (loading) {
-        articles = <p>loading</p>
+        articles = <Loading/>
     } else {
         articles = <Grid columns={3}>
                         <Grid.Row>
