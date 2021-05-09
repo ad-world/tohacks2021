@@ -1,19 +1,25 @@
 import React from 'react'
 import Home from './Home'
 
-import { Link, useParams } from 'react-router-dom'
+
+import { Link } from 'react-router-dom'
 import { Container, Grid } from 'semantic-ui-react';
 import moment from 'moment';
 
 function SingleArticle(props) {
 
     const link = localStorage.getItem('link');
-
+    const data = require('../../python_news/article_sample.json';)
     /*
 
     Create Query Here    
     {return title, text, date}
+
     */
+
+    
+    
+
 
     
     return (
