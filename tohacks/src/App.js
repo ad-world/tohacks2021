@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import 'semantic-ui-css/semantic.min.css'
 import './App.css';
+import 'semantic-ui-css/semantic.min.css'
 
 
 import Home from './pages/Home'
