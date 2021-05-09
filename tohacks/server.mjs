@@ -18,7 +18,7 @@ const {spawn} = require('child_process');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'build')))
-app.use(express.static('public'))
+app.use(express.static('build'))
 app.use(express.static('files'))
 
 app.get('/', (req, res) => {
@@ -59,4 +59,4 @@ app.post("/api/getArticle", function(req, res) {
     })
 });
 
-app.listen(8080)
+app.listen(3001)

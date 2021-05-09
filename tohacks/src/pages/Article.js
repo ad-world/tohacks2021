@@ -3,13 +3,13 @@ import Home from './Home'
 
 
 import { Link } from 'react-router-dom'
-import { Container, Grid } from 'semantic-ui-react';
+import { Container, Grid, Header } from 'semantic-ui-react';
 import moment from 'moment';
 
 function SingleArticle(props) {
 
     const link = localStorage.getItem('link');
-    const data = require('../../python_news/article_sample.json';)
+    const {title, text, authors, date} = require('../article_sample.json');
     /*
 
     Create Query Here    
@@ -17,7 +17,7 @@ function SingleArticle(props) {
 
     */
 
-    
+
     
 
 
@@ -29,6 +29,9 @@ function SingleArticle(props) {
             </Grid>
             <Container text>
                 <Header as='h1'>{title}</Header>
+                <Header as='h2'>{
+                    authors
+                }</Header>
                 <Header as='h3'>{moment(date).fromNow()}</Header>
                 <p>
                     {text}
