@@ -96,7 +96,7 @@ function HomeSettings() {
                                 Submit
                             </Button>
                         </Form>
-                        <Button onClick={() => {
+                        {/* <Button onClick={() => {
                             fetch("http://localhost:8080/api/getCategory", 
                             {   method: 'POST',
                                 headers: {'Content-Type': 'application/json'},
@@ -113,7 +113,7 @@ function HomeSettings() {
                             }).then((response) => console.log(response.json()))
                         }}>
                             sample text 2
-                        </Button>
+                        </Button> */}
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
