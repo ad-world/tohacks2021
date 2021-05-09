@@ -46,9 +46,6 @@ export default function HomeMain() {
     const handleClick = (e, { name }) => {
         localStorage.setItem('current-tab', name);
 
-        console.log(name);
-
-        console.log(name)
         setLoading(true)
 
         setCurrent(localStorage.getItem('current-tab'))
@@ -103,7 +100,6 @@ export default function HomeMain() {
                 onClick={handleClick}/>
                 {config && Object.entries(config).map((key, val) => {
                     if (key[1]) {
-                        // console.log(key)
                         return (
                             <Menu.Item
                                 name={key[0]}
@@ -117,7 +113,6 @@ export default function HomeMain() {
                     <Menu.Item>
                         <Dropdown placeholder='Reset configs' fluid multiple selection options={options}
                         onChange={(e, data) => {
-                            console.log(data)
                             totalOptions.map(item => {
                                 if(data.value.includes(item)){
                                     settings[item] = true;
@@ -142,7 +137,6 @@ export default function HomeMain() {
                                 if(search.trim() != ''){
                                     setCurrent(search)
                                 }
-                                console.log(search)
                             }}>Search</Button>
                         </Input>
                     </Menu.Item>

@@ -36,8 +36,11 @@ function SingleArticle(props) {
 
     var articles
 
+    const authorCount = authors.length;
+
     if (loading) {
         articles = <Loading/>
+    
             
     } else {
         articles = <Container>
@@ -47,13 +50,19 @@ function SingleArticle(props) {
             </Grid>
             <Container text>
                 <Header as='h1'>{title}</Header>
-                {authors.map((author) => {
+                {authorCount < 3 ? (authors.map((author) => {
                     return (
                         <Header as='h2'>
                             {author}
                         </Header>
                     )
-                })}
+                })) : (() => {
+                    return (
+                        <Header as='h2'>
+                            More than two authors
+                        </Header>
+                    )}
+                )}
                 <Header as='h3'>{date}</Header>
                 <p>
                     {text}
