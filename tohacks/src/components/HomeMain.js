@@ -7,6 +7,8 @@ const stop = 1;
 
 export default function HomeMain() {
     const [current, setCurrent] = useState('latest news');
+    const [loading, setLoading] = useState(true);
+    localStorage.setItem('current-tab', 'latest news');
     const config = JSON.parse(localStorage.getItem("config"));
     const handleClick = (e, { name }) => {
         localStorage.setItem('current-tab', name);
@@ -21,7 +23,28 @@ export default function HomeMain() {
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({"kw": current, "loc":"CA"})
             }).then((response) => {return response.json()}).then((r) => {
-                setData(r, [stop]); console.log("new request was made")}), [current])
+                setData(r, [stop]); setLoading(false); console.log("new request was made")}), [current])
+    
+    var articles
+
+    if (loading) {
+        articles = <p>loading</p>
+    } else {
+        articles = <Grid columns={3}>
+                        <Grid.Row>
+                            {
+                                data && data.map(article => {
+                                    return (
+                                        <GridColumn key={article.id} style={{ marginBottom: 20 }}>
+                                            <NewsCard article={article} />
+                                        </GridColumn>
+                                    )
+                                })
+                            }
+                        </Grid.Row>
+                    </Grid>
+    }
+    
     return (
         <Container className="background">
             <Menu secondary>
@@ -52,19 +75,7 @@ export default function HomeMain() {
                     />
                 </Menu.Menu>
             </Menu>
-            <Grid columns={3}>
-                <Grid.Row>
-                    {
-                        data && data.map(article => {
-                            return (
-                                <GridColumn key={article.id} style={{ marginBottom: 20 }}>
-                                    <NewsCard article={article} />
-                                </GridColumn>
-                            )
-                        })
-                    }
-                </Grid.Row>
-            </Grid>
+            {articles}
         </Container>
     )
     /*const data = require('../news_sample.json');
