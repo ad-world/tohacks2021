@@ -6,13 +6,14 @@ export default function NavBar() {
     const [current, setCurrent] = useState('latest news');
     const config = JSON.parse(localStorage.getItem("config"));
     const handleClick = (e, { name }) => {
+        setCurrent(name)
         localStorage.setItem('current-tab', name);
     };
 
     return (
         <Menu secondary>
             <Menu.Item
-                name='Latest News'
+                name='latest news'
                 active={current === 'latest news'}
                 onClick={handleClick}
             />
