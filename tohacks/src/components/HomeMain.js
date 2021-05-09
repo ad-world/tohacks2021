@@ -35,7 +35,7 @@ const totalOptions = ['finance', 'sports', 'politics', 'business']
 
 export default function HomeMain() {
     const [current, setCurrent] = useState('latest news');
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     localStorage.setItem('current-tab', 'latest news');
     const config = JSON.parse(localStorage.getItem("config"));
     const handleClick = (e, { name }) => {
@@ -49,14 +49,15 @@ export default function HomeMain() {
         setCurrent(localStorage.getItem('current-tab'))
     };
     var currentTab = useState(localStorage.getItem('current-tab'));
-    const [data, setData] = useState([], 0)
-    useEffect(() => 
-        fetch("http://localhost:8080/api/getCategory", 
-            {   method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({"kw": current, "loc":"CA"})
-            }).then((response) => {return response.json()}).then((r) => {
-                 setData(r, [stop]); setLoading(false); console.log("new request was made")}), [current])
+    // const [data, setData] = useState([], 0)
+    // useEffect(() => 
+    //     fetch("http://localhost:8080/api/getCategory", 
+    //         {   method: 'POST',
+    //             headers: {'Content-Type': 'application/json'},
+    //             body: JSON.stringify({"kw": current, "loc":"CA"})
+    //         }).then((response) => {return response.json()}).then((r) => {
+    //              setData(r, [stop]); setLoading(false); console.log("new request was made")}), [current])
+    const data = require('../news_sample.json');
 
     const [search, setSearch] = useState('');
     const handleChange = (e) => {
