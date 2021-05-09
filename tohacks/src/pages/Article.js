@@ -16,7 +16,7 @@ function SingleArticle(props) {
     const [date, setDate] = useState("")
     const [loading, setLoading] = useState(true);
     
-
+    
     useEffect(() => 
         fetch("http://localhost:8080/api/getArticle", 
             {   method: 'POST',
