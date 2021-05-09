@@ -39,20 +39,26 @@ function HomeSettings() {
                 <Grid divided='vertically'>
                     <Grid.Row columns={2}>
                         <Grid.Column>
-                            <Header as='h1'
-                                style={{ color: "black", 
-                                         margin: "0 0 0 50px", 
-                                         padding: "30px 0", 
-                                         position: "relative",
-                                         left: "150px"}}>
-                                Welcome! Please select a few categories that you would like to see news for.
+                            <div className="inner1">
+                                <Header as='h1'
+                                    style={{
+                                        color: "black",
+                                        margin: "0 0 0 50px",
+                                        padding: "30px 0",
+                                        position: "relative",
+                                        left: "150px",
+                                    }}>
+                                    Welcome! Please select a few categories that you would like to see news for.
                                 </Header>
+                            </div>
                         </Grid.Column>
                         <Grid.Column>
-                            <Form onSubmit={onSubmit} 
-                                style={{ padding: "0 0 0 30px",
-                                         position: "relative",
-                                         left: "150px"}}>
+                            <Form onSubmit={onSubmit}
+                                style={{
+                                    padding: "0 0 0 30px",
+                                    position: "relative",
+                                    left: "150px"
+                                }}>
                                 <Form.Field
                                     control={Checkbox}
                                     label={{ children: 'Sports' }}
