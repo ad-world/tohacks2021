@@ -1,10 +1,34 @@
 import React, {useEffect, useState} from 'react'
-import { Container, Grid, GridColumn } from 'semantic-ui-react'
+import { Container, Dropdown, Grid, GridColumn } from 'semantic-ui-react'
 import NewsCard from './NewsCard'
-import { Input, Menu, Button } from 'semantic-ui-react'
-import { set } from 'mongoose';
+import { Input, Menu, Button} from 'semantic-ui-react'
 
 const stop = 1;
+
+const options = [
+    {
+        key:'finance',
+        text:'finance',
+        value:'finance'
+    },
+    {
+        key:'sports',
+        text:'sports',
+        value:'sports'
+    },
+    {
+        key:'politics',
+        text:'politics',
+        value:'politics'
+    },
+    {
+        key:'business',
+        text:'business',
+        value:'business'
+    }
+]
+
+const totalOptions = ['finance', 'sports', 'politics', 'business']
 
 export default function HomeMain() {
     const [current, setCurrent] = useState('latest news');
@@ -28,6 +52,9 @@ export default function HomeMain() {
     const handleChange = (e) => {
         setSearch(e.target.value);
     }
+
+    const [settings, setSettings] = useState({})
+
     return (
         <Container className="background">
             <Menu secondary>
@@ -48,6 +75,27 @@ export default function HomeMain() {
                     }
                 })}
                 <Menu.Menu position='right'>
+                    <Menu.Item>
+                        <Dropdown placeholder='Reset configs' fluid multiple selection options={options}
+                        onChange={(e, data) => {
+                            console.log(data)
+                            totalOptions.map(item => {
+                                if(data.value.includes(item)){
+                                    settings[item] = true;
+                                } else {
+                                    settings[item] = false;
+                                }
+                                
+                            })
+                            }}
+                            />
+                        <Button type='submit' onClick={() => {
+                            if(Object.keys(settings).length > 0){
+                                localStorage.setItem("config", JSON.stringify(settings));
+                                window.location.reload();
+                            }
+                        }}>Reset</Button>
+                    </Menu.Item>
                     <Menu.Item>
                         <Input icon='search' placeholder='Search...' onChange={handleChange}>
                             <input/>
