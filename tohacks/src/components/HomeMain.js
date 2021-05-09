@@ -1,10 +1,36 @@
 import React, {useEffect, useState} from 'react'
-import { Container, Grid, GridColumn } from 'semantic-ui-react'
+import { Container, Dropdown, Grid, GridColumn } from 'semantic-ui-react'
 import NewsCard from './NewsCard'
-import { Input, Menu } from 'semantic-ui-react'
+import { Input, Menu, Button} from 'semantic-ui-react'
 
 
 const stop = 1;
+
+
+const options = [
+    {
+        key:'finance',
+        text:'finance',
+        value:'finance'
+    },
+    {
+        key:'sports',
+        text:'sports',
+        value:'sports'
+    },
+    {
+        key:'politics',
+        text:'politics',
+        value:'politics'
+    },
+    {
+        key:'business',
+        text:'business',
+        value:'business'
+    }
+]
+
+const totalOptions = ['finance', 'sports', 'politics', 'business']
 
 
 export default function HomeMain() {
@@ -14,8 +40,12 @@ export default function HomeMain() {
     const config = JSON.parse(localStorage.getItem("config"));
     const handleClick = (e, { name }) => {
         localStorage.setItem('current-tab', name);
+
+        console.log(name);
+
         console.log(name)
         setLoading(true)
+
         setCurrent(localStorage.getItem('current-tab'))
     };
     var currentTab = useState(localStorage.getItem('current-tab'));
@@ -26,7 +56,15 @@ export default function HomeMain() {
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({"kw": current, "loc":"CA"})
             }).then((response) => {return response.json()}).then((r) => {
-                setData(r, [stop]); setLoading(false); console.log("new request was made")}), [current])
+                 setData(r, [stop]); setLoading(false); console.log("new request was made")}), [current])
+
+    const [search, setSearch] = useState('');
+    const handleChange = (e) => {
+        setSearch(e.target.value);
+    }
+
+    const [settings, setSettings] = useState({})
+
     
     var articles
 
@@ -49,6 +87,7 @@ export default function HomeMain() {
         
     }
     
+
     return (
         <Container className="background">
             <Menu secondary>
@@ -58,7 +97,7 @@ export default function HomeMain() {
                 onClick={handleClick}/>
                 {config && Object.entries(config).map((key, val) => {
                     if (key[1]) {
-                        console.log(key)
+                        // console.log(key)
                         return (
                             <Menu.Item
                                 name={key[0]}
@@ -70,13 +109,37 @@ export default function HomeMain() {
                 })}
                 <Menu.Menu position='right'>
                     <Menu.Item>
-                        <Input icon='search' placeholder='Search...' />
+                        <Dropdown placeholder='Reset configs' fluid multiple selection options={options}
+                        onChange={(e, data) => {
+                            console.log(data)
+                            totalOptions.map(item => {
+                                if(data.value.includes(item)){
+                                    settings[item] = true;
+                                } else {
+                                    settings[item] = false;
+                                }
+                                
+                            })
+                            }}
+                            />
+                        <Button type='submit' onClick={() => {
+                            if(Object.keys(settings).length > 0){
+                                localStorage.setItem("config", JSON.stringify(settings));
+                                window.location.reload();
+                            }
+                        }}>Reset</Button>
                     </Menu.Item>
-                    <Menu.Item
-                        name='logout'
-                        active={current === 'logout'}
-                        onClick={handleClick}
-                    />
+                    <Menu.Item>
+                        <Input icon='search' placeholder='Search...' onChange={handleChange}>
+                            <input/>
+                            <Button type='submit' onClick={() => {
+                                if(search.trim() != ''){
+                                    setCurrent(search)
+                                }
+                                console.log(search)
+                            }}>Search</Button>
+                        </Input>
+                    </Menu.Item>
                 </Menu.Menu>
             </Menu>
             {articles}
