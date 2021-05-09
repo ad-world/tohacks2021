@@ -72,6 +72,7 @@ export default function HomeMain() {
         articles = <Loading/>
     } else {
         articles = <Grid columns={3}>
+                        <Header as='h1'>{current}</Header>
                         <Grid.Row>
                             {
                                 data && data.map(article => {

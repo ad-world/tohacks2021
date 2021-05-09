@@ -54,7 +54,7 @@ function SingleArticle(props) {
                         </Header>
                     )
                 })}
-                <Header as='h3'>{moment(date).fromNow()}</Header>
+                <Header as='h3'>{date}</Header>
                 <p>
                     {text}
                 </p>
