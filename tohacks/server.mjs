@@ -9,11 +9,7 @@ const __dirname = path.dirname(moduleURL.pathname);
 const express = require('express')
 const app = express()
 
-const rp = require('request-promise');
-const c = require('cheerio');
-const async = require('async');
-const https = require('https')
-const ws = require('ws')
+
 var bodyParser = require('body-parser');
 var fs = require("fs")
 const {spawn} = require('child_process');
