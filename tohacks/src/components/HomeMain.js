@@ -3,7 +3,9 @@ import { Container, Grid, GridColumn } from 'semantic-ui-react'
 import NewsCard from './NewsCard'
 import { Input, Menu } from 'semantic-ui-react'
 
+
 const stop = 1;
+
 
 export default function HomeMain() {
     const [current, setCurrent] = useState('latest news');
@@ -82,6 +84,10 @@ export default function HomeMain() {
     )
     /*const data = require('../news_sample.json');
     console.log(data)
+
+    const [current, setCurrent] = useLocalStorage('current-tab', 'politics')
+    console.log(current);
+
 
     return (
         <Container className="background">

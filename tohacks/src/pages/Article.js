@@ -1,14 +1,42 @@
-import { Grid } from '@material-ui/core';
 import React from 'react'
 
-import { Link } from 'react-router-dom'
 
-function SingleArticle(){
+import { Link } from 'react-router-dom'
+import { Container, Grid, Header } from 'semantic-ui-react';
+import moment from 'moment';
+
+function SingleArticle(props) {
+
+    const link = localStorage.getItem('link');
+    const {title, text, authors, date} = require('../article_sample.json');
+    /*
+
+    Create Query Here    
+    {return title, text, date}
+
+    */
+
+
+    
+
+
     
     return (
-        <Grid>
-             <Link to="/">Back</Link>
-        </Grid>
+        <Container>
+            <Grid>
+                <Link to="/">Back</Link>
+            </Grid>
+            <Container text>
+                <Header as='h1'>{title}</Header>
+                <Header as='h2'>{
+                    authors
+                }</Header>
+                <Header as='h3'>{moment(date).fromNow()}</Header>
+                <p>
+                    {text}
+                </p>
+            </Container>
+        </Container>
     )
 }
 
