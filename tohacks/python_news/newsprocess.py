@@ -57,7 +57,7 @@ def get_articles_from_kw_and_loc(kw, loc):
 
 
 if __name__ == "__main__":
-    #get_articles_from_kw_and_loc("business", "CA")
+    #get_articles_from_kw_and_loc("breaking", "CA")
     get_articles_from_kw_and_loc(sys.argv[1], sys.argv[2])
 else:
     get_articles_from_kw_and_loc(sys.argv[1], sys.argv[2])

@@ -6,7 +6,7 @@ import Loading from './Loading'
 
 const stop = 1;
 
-
+sessionStorage.clear()
 const options = [
     {
         key:'finance',
@@ -41,24 +41,29 @@ const totalOptions = ['finance', 'sports', 'politics', 'business', 'technology']
 export default function HomeMain() {
     const [current, setCurrent] = useState('latest news');
     const [loading, setLoading] = useState(true);
-    localStorage.setItem('current-tab', 'latest news');
+    localStorage.setItem('current-tab', current);
     const config = JSON.parse(localStorage.getItem("config"));
     const handleClick = (e, { name }) => {
+        if (sessionStorage.getItem(localStorage.getItem('current-tab')) === null) {
+            sessionStorage.setItem(localStorage.getItem('current-tab'), JSON.stringify(data))
+        }
         localStorage.setItem('current-tab', name);
-
         setLoading(true)
-
         setCurrent(localStorage.getItem('current-tab'))
     };
     var currentTab = useState(localStorage.getItem('current-tab'));
     const [data, setData] = useState([], 0)
-    useEffect(() => 
-        fetch("http://localhost:8080/api/getCategory", 
-            {   method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({"kw": current, "loc":"CA"})
-            }).then((response) => {return response.json()}).then((r) => {
-                 setData(r, [stop]); setLoading(false); console.log("new request was made")}), [current])
+    useEffect(() => {
+        if (sessionStorage.getItem(localStorage.getItem('current-tab')) != null) {
+            setData(JSON.parse(sessionStorage.getItem(current))); 
+            setLoading(false);
+        } else {
+            fetch("http://localhost:8080/api/getCategory", 
+                {   method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({"kw": current, "loc":"CA"})
+                }).then((response) => {return response.json()}).then((r) => {
+                    setData(r, [stop]); setLoading(false); console.log(r); console.log("new request was made")})}}, [current])
 
     const [search, setSearch] = useState('');
     const handleChange = (e) => {
@@ -95,8 +100,8 @@ export default function HomeMain() {
         <Container className="background">
             <Menu secondary>
             <Menu.Item
-                name='Latest News'
-                active={current === 'latest news'}
+                name='latest news'
+                active={current === 'breaking'}
                 onClick={handleClick}/>
                 {config && Object.entries(config).map((key, val) => {
                     if (key[1]) {
