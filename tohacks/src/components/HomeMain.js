@@ -142,6 +142,7 @@ export default function HomeMain() {
                                 if(search.trim() != ''){
                                     setCurrent(search)
                                 }
+                                console.log(search)
                             }}>Search</Button>
                         </Input>
                     </Menu.Item>
