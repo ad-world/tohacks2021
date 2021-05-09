@@ -36,7 +36,7 @@ def get_article_info(url):
 
 
 if __name__ == "__main__":
-    get_article_info("https://www.forbes.com/sites/mikeozanian/2021/05/07/worlds-most-valuable-sports-teams-2021/")
+    #get_article_info("https://www.forbes.com/sites/mikeozanian/2021/05/07/worlds-most-valuable-sports-teams-2021/")
+    get_article_info(sys.argv[1])
 else:
-    print("mama mia!")
     get_article_info(sys.argv[1])
