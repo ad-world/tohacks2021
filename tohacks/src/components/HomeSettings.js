@@ -32,7 +32,9 @@ function HomeSettings() {
 
 
     return (
-        <Container style={{ backgroundColor: 'lightblue' }} className="settings">
+        <Container fluid style={{ backgroundColor: 'lightblue' }} >
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <div className="child">
             <Grid divided='vertically'>
                 <Grid.Row columns={2}>
@@ -94,6 +96,24 @@ function HomeSettings() {
                                 Submit
                             </Button>
                         </Form>
+                        <Button onClick={() => {
+                            fetch("http://localhost:8080/api/getCategory", 
+                            {   method: 'POST',
+                                headers: {'Content-Type': 'application/json'},
+                                body: JSON.stringify({"kw":"sports", "loc":"CA"})
+                            }).then((response) => console.log(response.json()))
+                        }}>
+                            sample text 
+                        </Button>
+                        <Button onClick={() => {
+                            fetch("http://localhost:8080/api/getArticle", 
+                            {   method: 'POST',
+                                headers: {'Content-Type': 'application/json'},
+                                body: JSON.stringify({"url":"https://www.forbes.com/sites/mikeozanian/2021/05/07/worlds-most-valuable-sports-teams-2021/"})
+                            }).then((response) => console.log(response.json()))
+                        }}>
+                            sample text 2
+                        </Button>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
