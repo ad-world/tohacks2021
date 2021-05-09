@@ -13,6 +13,7 @@ export default function HomeMain() {
     const handleClick = (e, { name }) => {
         localStorage.setItem('current-tab', name);
         console.log(name)
+        setLoading(true)
         setCurrent(localStorage.getItem('current-tab'))
     };
     var currentTab = useState(localStorage.getItem('current-tab'));
@@ -43,6 +44,7 @@ export default function HomeMain() {
                             }
                         </Grid.Row>
                     </Grid>
+        
     }
     
     return (
