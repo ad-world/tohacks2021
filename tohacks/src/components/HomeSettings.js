@@ -101,7 +101,7 @@ function HomeSettings() {
                             {   method: 'POST',
                                 headers: {'Content-Type': 'application/json'},
                                 body: JSON.stringify({"kw":"sports", "loc":"CA"})
-                            }).then((response) => console.log(response.json()))
+                            }).then((response) => {return response.json()}).then((data) => console.log(data))
                         }}>
                             sample text 
                         </Button>

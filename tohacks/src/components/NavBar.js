@@ -5,7 +5,9 @@ import { Input, Menu } from 'semantic-ui-react'
 export default function NavBar() {
     const [current, setCurrent] = useState('latest news');
     const config = JSON.parse(localStorage.getItem("config"));
-    const handleClick = (e, { name }) => setCurrent(name);
+    const handleClick = (e, { name }) => {
+        localStorage.setItem('current-tab', name);
+    };
 
     return (
         <Menu secondary>
