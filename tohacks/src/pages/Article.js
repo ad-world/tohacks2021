@@ -47,9 +47,13 @@ function SingleArticle(props) {
             </Grid>
             <Container text>
                 <Header as='h1'>{title}</Header>
-                <Header as='h2'>{
-                    authors
-                }</Header>
+                {authors.map((author) => {
+                    return (
+                        <Header as='h2'>
+                            {author}
+                        </Header>
+                    )
+                })}
                 <Header as='h3'>{moment(date).fromNow()}</Header>
                 <p>
                     {text}
