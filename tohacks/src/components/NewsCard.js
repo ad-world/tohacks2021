@@ -11,16 +11,18 @@ function NewsCard({ article: { id, date, title, link } }) {
                 <Card.Header>
                     {title}
                 </Card.Header>
+        </Card.Content>
+        <Card.Content extra>
                 <Card.Meta as={Link} to={`/${id}`}>
-                    <Button onClick={() => {
+                    <Button size='mini' onClick={() => {
                         localStorage.setItem('link', link)
-                    }}></Button>
+                    }}>View Article</Button>
                 </Card.Meta>
-                <Card.Content extra>
-                    <Label>
-                        {moment(date).fromNow()}
-                    </Label>
-                </Card.Content>
+    
+                <Label color='lightblue' style={{float: 'right'}}>
+                    {moment(date).fromNow()}
+                </Label>
+
 
             </Card.Content>
         </Card>
