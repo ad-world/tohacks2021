@@ -7,7 +7,8 @@ function HomeSettings() {
         sports: false,
         business: false,
         finance: false,
-        politics: false
+        politics: false,
+        technology: false
     })
 
     const location = {}
@@ -104,6 +105,18 @@ function HomeSettings() {
                                         let current = settings.politics
                                         console.log(current)
                                         setSettings({ ...settings, politics: !current })
+                                    }
+                                    }
+                                />
+                                <Form.Field
+                                    control={Checkbox}
+                                    label={{ children: 'Technology' }}
+                                    name='technology'
+                                    value={settings.technology}
+                                    onChange={() => {
+                                        let current = settings.technology
+                                        console.log(current)
+                                        setSettings({ ...settings, technology: !current })
                                     }
                                     }
                                 />

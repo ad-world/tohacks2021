@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { Container, Dropdown, Grid, GridColumn } from 'semantic-ui-react'
 import NewsCard from './NewsCard'
-import { Input, Menu, Button} from 'semantic-ui-react'
+import { Input, Menu, Button, Header} from 'semantic-ui-react'
 import Loading from './Loading'
 
 const stop = 1;
@@ -27,10 +27,15 @@ const options = [
         key:'business',
         text:'business',
         value:'business'
+    },
+    {
+        key:'technology',
+        text:'technology',
+        value:'technology'
     }
 ]
 
-const totalOptions = ['finance', 'sports', 'politics', 'business']
+const totalOptions = ['finance', 'sports', 'politics', 'business', 'technology']
 
 
 export default function HomeMain() {

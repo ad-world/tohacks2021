@@ -14,10 +14,6 @@ function App() {
       {localStorage.getItem("config") ? <></> : <></>}
       <Router>
         <Route exact path='/' component={Home} />
-        {/* <Route exact path='/sports' component={Sports}/>
-        <Route exact path='/business' component={Business}/>
-        <Route exact path='/finance' component={Finance}/>
-        <Route exact path='/politics' component={Politics}/> */}
         <Switch>
           <Route exact path='/:articleId' component={Article} />
         </Switch>
