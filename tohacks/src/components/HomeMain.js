@@ -1,43 +1,88 @@
-import React, { useState, useEffect } from 'react'
+import React, {useEffect, useState} from 'react'
 import { Container, Grid, GridColumn } from 'semantic-ui-react'
 import NewsCard from './NewsCard'
+import { Input, Menu } from 'semantic-ui-react'
 
-function useLocalStorage(key, initialValue) {
-    // State to store our value
-    // Pass initial state function to useState so logic is only executed once
-    const [storedValue, setStoredValue] = useState(() => {
-      try {
-        // Get from local storage by key
-        const item = window.localStorage.getItem(key);
-        // Parse stored json or if none return initialValue
-        return item ? JSON.parse(item) : initialValue;
-      } catch (error) {
-        // If error also return initialValue
-        console.log(error);
-        return initialValue;
-      }
-    });
-    // Return a wrapped version of useState's setter function that ...
-    // ... persists the new value to localStorage.
-    const setValue = (value) => {
-      try {
-        // Allow value to be a function so we have same API as useState
-        const valueToStore =
-          value instanceof Function ? value(storedValue) : value;
-        // Save state
-        setStoredValue(valueToStore);
-        // Save to local storage
-        window.localStorage.setItem(key, JSON.stringify(valueToStore));
-      } catch (error) {
-        // A more advanced implementation would handle the error case
-        console.log(error);
-      }
-    };
-    return [storedValue, setValue];
-  }
+
+const stop = 1;
+
 
 export default function HomeMain() {
-    const data = require('../news_sample.json');
+    const [current, setCurrent] = useState('latest news');
+    const [loading, setLoading] = useState(true);
+    localStorage.setItem('current-tab', 'latest news');
+    const config = JSON.parse(localStorage.getItem("config"));
+    const handleClick = (e, { name }) => {
+        localStorage.setItem('current-tab', name);
+        console.log(name)
+        setLoading(true)
+        setCurrent(localStorage.getItem('current-tab'))
+    };
+    var currentTab = useState(localStorage.getItem('current-tab'));
+    const [data, setData] = useState([], 0)
+    useEffect(() => 
+        fetch("http://localhost:8080/api/getCategory", 
+            {   method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({"kw": current, "loc":"CA"})
+            }).then((response) => {return response.json()}).then((r) => {
+                setData(r, [stop]); setLoading(false); console.log("new request was made")}), [current])
+    
+    var articles
+
+    if (loading) {
+        articles = <p>loading</p>
+    } else {
+        articles = <Grid columns={3}>
+                        <Grid.Row>
+                            {
+                                data && data.map(article => {
+                                    return (
+                                        <GridColumn key={article.id} style={{ marginBottom: 20 }}>
+                                            <NewsCard article={article} />
+                                        </GridColumn>
+                                    )
+                                })
+                            }
+                        </Grid.Row>
+                    </Grid>
+        
+    }
+    
+    return (
+        <Container className="background">
+            <Menu secondary>
+            <Menu.Item
+                name='Latest News'
+                active={current === 'latest news'}
+                onClick={handleClick}/>
+                {config && Object.entries(config).map((key, val) => {
+                    if (key[1]) {
+                        console.log(key)
+                        return (
+                            <Menu.Item
+                                name={key[0]}
+                                active={current === {key}}
+                                onClick={handleClick}
+                            />
+                        )
+                    }
+                })}
+                <Menu.Menu position='right'>
+                    <Menu.Item>
+                        <Input icon='search' placeholder='Search...' />
+                    </Menu.Item>
+                    <Menu.Item
+                        name='logout'
+                        active={current === 'logout'}
+                        onClick={handleClick}
+                    />
+                </Menu.Menu>
+            </Menu>
+            {articles}
+        </Container>
+    )
+    /*const data = require('../news_sample.json');
     console.log(data)
 
     const [current, setCurrent] = useLocalStorage('current-tab', 'politics')
@@ -60,5 +105,5 @@ export default function HomeMain() {
                 </Grid.Row>
             </Grid>
         </Container>
-    )
+    )*/
 }

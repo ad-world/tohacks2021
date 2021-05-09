@@ -27,7 +27,6 @@ app.get('/', (req, res) => {
 
 app.post("/api/getCategory", function(req, res) {
     console.log("hello???")
-    console.log(req)
     const kw = req.body.kw
     const loc = req.body.loc
     console.log(kw, loc)
@@ -35,10 +34,8 @@ app.post("/api/getCategory", function(req, res) {
     python.stdout.on('data', function (data) {
         console.log('Pipe data from python script ...');
         console.log(data.toString());
-        if (data.toString() == "Done!\n") {
-            console.log("made it here!")
-            res.send(JSON.parse(fs.readFileSync(__dirname + "/python_news/news_sample.json")))
-        }
+        //console.log(JSON.parse(fs.readFileSync(__dirname + "/python_news/news_sample.json")))
+        res.send(JSON.parse(fs.readFileSync(__dirname + "/python_news/news_sample.json")))
     })
 });
 
@@ -53,9 +50,7 @@ app.post("/api/getArticle", function(req, res) {
     python.stdout.on('data', function (data) {
         console.log('Pipe data from python script ...');
         console.log(data.toString());
-        if (data.toString() == "Done!\n" || data.toString() == "Done!") {
-          res.send(JSON.parse(fs.readFileSync(__dirname + "/python_news/article_sample.json")))
-        }
+        res.send(JSON.parse(fs.readFileSync(__dirname + "/python_news/article_sample.json")))
     })
 });
 
