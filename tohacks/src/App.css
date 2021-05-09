@@ -1,42 +1,103 @@
-.App {
-  text-align: center;
+.background {
+  background-color: lightblue;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.child {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+.settings {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 100%;
+  position: relative;
+  flex-wrap: wrap;
 }
 
-.App-link {
-  color: #61dafb;
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body {
+  height: 100vh;
+  width: 100vw;
 }
 
 html {
+  background-color: lightblue;
+  height:100%;
+}
+
+/* For Homesettings */
+.sub_container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* We don't want the default checkbox to occur here */
+.sub_container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.sub_checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: rgb(245, 245, 245)
+}
+
+.sub_container:hover input~.sub_checkmark {
+  background-color: rgb(255, 255, 255);
+}
+
+.sub_container input:checked~.sub_checkmark {
+  background-color: #e1e7ec;
+}
+
+/* Create checkmark/indicator */
+.sub_checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.sub_container input:checked~.sub_checkmark:after {
+  display: block;
+}
+
+.sub_container .sub_checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-tranform: rotate(45deg);
+  transform: rotate(45deg);
+} 
+
+.root {
   background-color: lightblue;
 }
