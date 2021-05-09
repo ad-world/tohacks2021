@@ -38,6 +38,13 @@ function HomeSettings() {
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <div className="child">
                 <Grid divided='vertically'>
+                    <Grid.Row columns={1}>
+                        <Grid.Column>
+                            <Header as='h1' style={{ textAlign: 'center' }}>
+                                This Is Not A Newspaper
+                        </Header>
+                        </Grid.Column>
+                    </Grid.Row>
                     <Grid.Row columns={2}>
                         <Grid.Column>
                             <div className="inner1">
