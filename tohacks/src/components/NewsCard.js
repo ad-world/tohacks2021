@@ -13,7 +13,7 @@ function NewsCard({ article: { id, date, title, link } }) {
                 </Card.Header>
         </Card.Content>
         <Card.Content extra>
-                <Card.Meta as={Link} to={`/${id}`}>
+                <Card.Meta as={Link} to={`/articles/${id}`}>
                     <Button size='mini' onClick={() => {
                         localStorage.setItem('link', link)
                     }}>View Article</Button>
