@@ -3,19 +3,22 @@ import { Card, Label, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 
-function NewsCard({ article: { id, date, title, link } }) {
+function NewsCard({ article: { id, date, author, title, url } }) {
 
     return (
         <Card fluid style={{ height: 200 }}>
             <Card.Content>
                 <Card.Header>
                     {title}
+                    <br></br>
                 </Card.Header>
+                <Card.Meta></Card.Meta>
         </Card.Content>
+        <Card.Content description={author}/>
         <Card.Content extra>
-                <Card.Meta as={Link} to={`/articles/${id}`}>
+                <Card.Meta as={Link} to={`/articles/${url}`}>
                     <Button size='mini' onClick={() => {
-                        localStorage.setItem('link', link)
+                        localStorage.setItem('link', url)
                     }}>View Article</Button>
                 </Card.Meta>
     

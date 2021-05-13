@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Dropdown, Grid, GridColumn } from 'semantic-ui-react'
 import NewsCard from './NewsCard'
-import { Input, Menu, Button, Header} from 'semantic-ui-react'
+import { Input, Menu, Button, Header } from 'semantic-ui-react'
 import Loading from './Loading'
 
 const stop = 1;
@@ -9,38 +9,33 @@ const stop = 1;
 sessionStorage.clear()
 const options = [
     {
-        key:'finance',
-        text:'finance',
-        value:'finance'
+        key: 'sports',
+        text: 'sports',
+        value: 'sports'
     },
     {
-        key:'sports',
-        text:'sports',
-        value:'sports'
+        key: 'politics',
+        text: 'politics',
+        value: 'politics'
     },
     {
-        key:'politics',
-        text:'politics',
-        value:'politics'
+        key: 'business',
+        text: 'business',
+        value: 'business'
     },
     {
-        key:'business',
-        text:'business',
-        value:'business'
-    },
-    {
-        key:'technology',
-        text:'technology',
-        value:'technology'
+        key: 'technology',
+        text: 'technology',
+        value: 'technology'
     }
 ]
 
-const totalOptions = ['finance', 'sports', 'politics', 'business', 'technology']
+const totalOptions = ['sports', 'politics', 'business', 'technology']
 
 
 export default function HomeMain() {
-    const [current, setCurrent] = useState('latest news');
-    const [loading, setLoading] = useState(false);
+    const [current, setCurrent] = useState('business');
+    const [loading, setLoading] = useState(true);
     localStorage.setItem('current-tab', current);
     const config = JSON.parse(localStorage.getItem("config"));
     const handleClick = (e, { name }) => {
@@ -53,9 +48,33 @@ export default function HomeMain() {
     };
     var currentTab = useState(localStorage.getItem('current-tab'));
 
-    const data = require('../news_sample.json')
+    // const data = require('../news_sample.json')
+    const [data, setData] = useState([], 0)
 
-    // const [data, setData] = useState([], 0)
+    useEffect(() => {
+        const axios = require('axios');
+
+        const params = {
+            access_key: '5210f9ab2378b37658b904a65c21739d',
+            categories: current,
+            limit: 100,
+            languages: 'en',
+            location: 'us'
+        }
+
+        axios.get(`http://api.mediastack.com/v1/news`, { params })
+            .then((res) => {
+                console.log(res.data.data);
+                setData(res.data.data, [1])
+                setLoading(false)
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    },
+        [current])
+
+    // 
 
     // useEffect(() => {
     //     if (sessionStorage.getItem(localStorage.getItem('current-tab')) != null) {
@@ -76,43 +95,39 @@ export default function HomeMain() {
 
     const [settings, setSettings] = useState({})
 
-    
+
     var articles
 
     if (loading) {
-        articles = <Loading/>
+        articles = <Loading />
     } else {
         articles = <Grid columns={3}>
-                        <Header as='h1'>{current}</Header>
-                        <Grid.Row>
-                            {
-                                data && data.map(article => {
-                                    return (
-                                        <GridColumn key={article.id} style={{ marginBottom: 20 }}>
-                                            <NewsCard article={article} />
-                                        </GridColumn>
-                                    )
-                                })
-                            }
-                        </Grid.Row>
-                    </Grid>
-        
+            <Header as='h1'>{current}</Header>
+            <Grid.Row>
+                {
+                    data && data.map(article => {
+                        return (
+                            <GridColumn key={article.id} style={{ marginBottom: 20 }}>
+                                <NewsCard article={article} />
+                            </GridColumn>
+                        )
+                    })
+                }
+            </Grid.Row>
+        </Grid>
+
     }
-    
+
 
     return (
         <Container className="background">
             <Menu secondary>
-            <Menu.Item
-                name='latest news'
-                active={current === 'breaking'}
-                onClick={handleClick}/>
                 {config && Object.entries(config).map((key, val) => {
                     if (key[1]) {
                         return (
                             <Menu.Item
                                 name={key[0]}
-                                active={current === {key}}
+                                active={current === { key }}
                                 onClick={handleClick}
                             />
                         )
@@ -121,19 +136,19 @@ export default function HomeMain() {
                 <Menu.Menu position='right'>
                     <Menu.Item>
                         <Dropdown placeholder='Reset configs' fluid multiple selection options={options}
-                        onChange={(e, data) => {
-                            totalOptions.map(item => {
-                                if(data.value.includes(item)){
-                                    settings[item] = true;
-                                } else {
-                                    settings[item] = false;
-                                }
-                                
-                            })
+                            onChange={(e, data) => {
+                                totalOptions.map(item => {
+                                    if (data.value.includes(item)) {
+                                        settings[item] = true;
+                                    } else {
+                                        settings[item] = false;
+                                    }
+
+                                })
                             }}
-                            />
+                        />
                         <Button type='submit' onClick={() => {
-                            if(Object.keys(settings).length > 0){
+                            if (Object.keys(settings).length > 0) {
                                 localStorage.setItem("config", JSON.stringify(settings));
                                 window.location.reload();
                             }
@@ -141,9 +156,9 @@ export default function HomeMain() {
                     </Menu.Item>
                     <Menu.Item>
                         <Input icon='search' placeholder='Search...' onChange={handleChange}>
-                            <input/>
+                            <input />
                             <Button type='submit' onClick={() => {
-                                if(search.trim() !== ''){
+                                if (search.trim() !== '') {
                                     setCurrent(search)
                                 }
                                 console.log(search)
