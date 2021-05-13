@@ -9,6 +9,11 @@ const stop = 1;
 sessionStorage.clear()
 const options = [
     {
+        key: 'general',
+        text: 'general',
+        value: 'general'
+    },
+    {
         key: 'sports',
         text: 'sports',
         value: 'sports'
@@ -34,7 +39,7 @@ const totalOptions = ['sports', 'politics', 'business', 'technology']
 
 
 export default function HomeMain() {
-    const [current, setCurrent] = useState('business');
+    const [current, setCurrent] = useState('general');
     const [loading, setLoading] = useState(true);
     localStorage.setItem('current-tab', current);
     const config = JSON.parse(localStorage.getItem("config"));
@@ -46,31 +51,43 @@ export default function HomeMain() {
         setLoading(true)
         setCurrent(localStorage.getItem('current-tab'))
     };
-    var currentTab = useState(localStorage.getItem('current-tab'));
 
-    // const data = require('../news_sample.json')
     const [data, setData] = useState([], 0)
 
     useEffect(() => {
+
         const axios = require('axios');
 
-        const params = {
-            access_key: '5210f9ab2378b37658b904a65c21739d',
-            categories: current,
-            limit: 100,
-            languages: 'en',
-            location: 'us'
+        const custom = totalOptions.includes(current) || current == 'general';
+
+        console.log(custom)
+        let params = {}
+        if(!custom){
+            params = {
+                apiKey: '9c47f46421fa498cbe040ea919eb81c1',
+                q: current,
+                languages: 'en',
+                country: 'us'
+            }
+        } else {
+            params = {
+                apiKey: '9c47f46421fa498cbe040ea919eb81c1',
+                category: current,
+                languages: 'en',
+                country: 'us'
+            }
         }
 
-        axios.get(`http://api.mediastack.com/v1/news`, { params })
+        axios.get(`https://newsapi.org/v2/top-headlines`, { params })
             .then((res) => {
-                console.log(res.data.data);
-                setData(res.data.data, [1])
+                console.log(res.data.articles);
+                setData(res.data.articles, [1])
                 setLoading(false)
             })
             .catch(error => {
                 console.error(error)
             })
+
     },
         [current])
 
@@ -122,6 +139,11 @@ export default function HomeMain() {
     return (
         <Container className="background">
             <Menu secondary>
+                <Menu.Item
+                    name='general'
+                    active='true'
+                    onClick={handleClick}
+                />
                 {config && Object.entries(config).map((key, val) => {
                     if (key[1]) {
                         return (
@@ -170,28 +192,4 @@ export default function HomeMain() {
             {articles}
         </Container>
     )
-    /*const data = require('../news_sample.json');
-    console.log(data)
-
-    const [current, setCurrent] = useLocalStorage('current-tab', 'politics')
-    console.log(current);
-
-
-    return (
-        <Container className="background">
-            <Grid columns={3}>
-                <Grid.Row>
-                    {
-                        data && data.map(article => {
-                            return (
-                                <GridColumn key={article.id} style={{ marginBottom: 20 }}>
-                                    <NewsCard article={article} />
-                                </GridColumn>
-                            )
-                        })
-                    }
-                </Grid.Row>
-            </Grid>
-        </Container>
-    )*/
 }
